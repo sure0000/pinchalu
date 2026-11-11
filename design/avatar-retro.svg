@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- “茶”= 艹 + 人 + 木：肥圆单色笔画 -->
+    <path id="cao" d="M170 118 H342 M210 70 V118 M302 70 V118"/>
+    <path id="ren" d="M258 184 C252 224 222 250 174 260 M252 222 C270 242 304 254 346 260"/>
+    <path id="mu" d="M160 340 H352 M256 308 V418 M250 366 C236 392 208 408 174 416 M262 366 C276 392 306 408 340 416"/>
+  </defs>
+
+  <!-- 底色：同心波纹（70 年代辐射感，也像茶汤涟漪） -->
+  <rect width="512" height="512" fill="#2e5b3b"/>
+  <g>
+    <circle cx="256" cy="256" r="400" fill="#356843"/>
+    <circle cx="256" cy="256" r="340" fill="#2e5b3b"/>
+    <circle cx="256" cy="256" r="280" fill="#356843"/>
+    <circle cx="256" cy="256" r="220" fill="#2e5b3b"/>
+    <circle cx="256" cy="256" r="160" fill="#356843"/>
+  </g>
+
+  <!-- 气泡 -->
+  <g fill="none" stroke="#fff1d0" stroke-width="5" opacity="0.9">
+    <circle cx="116" cy="128" r="17"/>
+    <circle cx="408" cy="150" r="11"/>
+    <circle cx="100" cy="384" r="12"/>
+    <circle cx="418" cy="392" r="19"/>
+  </g>
+  <g stroke="#fff1d0" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M108 124 L111 120"/>
+    <path d="M410 392 L414 387"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(256 254) scale(0.9) translate(-256 -254)">
+    <!-- 橙色立体挤出（70 年代 3D 投影） -->
+    <g stroke="#ff7a3d" stroke-width="46" transform="translate(12 14)">
+      <use xlink:href="#cao"/><use xlink:href="#ren"/><use xlink:href="#mu"/>
+    </g>
+    <!-- 奶油色主体，纯色扁平 -->
+    <g stroke="#fff1d0" stroke-width="46">
+      <use xlink:href="#cao"/><use xlink:href="#ren"/><use xlink:href="#mu"/>
+    </g>
+    <!-- 泡泡高光 -->
+    <g stroke="#bfe3ff" stroke-width="9" opacity="0.95">
+      <path d="M186 110 H212"/>
+      <path d="M178 332 H206"/>
+      <path d="M248 324 V350"/>
+    </g>
+  </g>
+</svg>

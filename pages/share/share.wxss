@@ -1,0 +1,159 @@
+.tabs {
+  margin-bottom: 24rpx;
+}
+
+.cover-box {
+  margin-bottom: 24rpx;
+}
+
+.cover-box .sec {
+  margin-bottom: 12rpx;
+}
+
+.cover-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.cover-photo {
+  position: relative;
+  width: 148rpx;
+  height: 148rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.12);
+}
+
+.cover-img {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 40rpx;
+  text-align: center;
+  background: rgba(43, 42, 38, 0.62);
+  color: #fff;
+  font-size: 30rpx;
+  border-bottom-left-radius: 12rpx;
+}
+
+.cover-none {
+  flex: 1;
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+.cover-btn {
+  flex-shrink: 0;
+  padding: 0 32rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 28rpx;
+}
+
+.copy {
+  background: var(--chip);
+  border-radius: 16rpx;
+  padding: 28rpx;
+}
+
+.title {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  white-space: pre-wrap;
+}
+
+.p {
+  display: block;
+  font-size: 29rpx;
+  line-height: 1.7;
+  margin-bottom: 12rpx;
+  white-space: pre-wrap;
+}
+
+.hash {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  color: var(--tea);
+  line-height: 1.7;
+  word-break: break-all;
+}
+
+.actions {
+  margin-top: 24rpx;
+  gap: 20rpx;
+}
+
+.actions .btn {
+  flex: 1;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--tea);
+  box-shadow: inset 0 0 0 2rpx var(--tea);
+}
+
+.img-wrap {
+  position: relative;
+  margin: 8rpx 0 24rpx;
+}
+
+.imgs {
+  width: 646rpx;
+  height: 861rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  background: var(--chip);
+}
+
+.img {
+  width: 646rpx;
+  height: 861rpx;
+}
+
+.img-label {
+  position: absolute;
+  left: 20rpx;
+  bottom: 20rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 24rpx;
+  background: rgba(43, 42, 38, 0.62);
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.img-empty {
+  height: 400rpx;
+  line-height: 400rpx;
+  text-align: center;
+  color: var(--muted);
+  font-size: 28rpx;
+}
+
+.hint {
+  text-align: center;
+  line-height: 1.7;
+  padding: 0 20rpx;
+}
+
+/* 离屏画布：只用来生成，不在界面展示 */
+.canvas {
+  position: fixed;
+  left: -3000rpx;
+  top: -3000rpx;
+  width: 750rpx;
+  height: 1000rpx;
+}

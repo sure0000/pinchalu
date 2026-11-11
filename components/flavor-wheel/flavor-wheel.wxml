@@ -1,0 +1,34 @@
+<view class="fw">
+  <view class="fw-picked" wx:if="{{picked.length}}">
+    <view class="fw-pick" wx:for="{{picked}}" wx:key="name" bindtap="remove" data-name="{{item.name}}">
+      <text class="fw-dot" style="background: {{item.color}};"></text>{{item.name}} ×
+    </view>
+  </view>
+
+  <!-- 轮盘：外圈亚类、内圈大类、中心显示已选数 -->
+  <view class="fw-wheel" style="width: {{size}}rpx; height: {{size}}rpx;" bindtap="onWheel">
+    <view class="fw-outer" style="background: conic-gradient({{outerGrad}});"></view>
+    <view class="fw-inner" style="background: conic-gradient({{innerGrad}});"></view>
+    <view class="fw-hole">
+      <text class="fw-hole-n">{{selCount || '香'}}</text>
+      <text class="fw-hole-t">{{selCount ? '已选' : '点扇区'}}</text>
+    </view>
+    <text class="fw-sub {{item.dark ? 'dark' : ''}}" wx:for="{{subLabels}}" wx:key="key" style="left: {{item.x}}rpx; top: {{item.y}}rpx; transform: translate(-50%, -50%) rotate({{item.rot}}deg);">{{item.name}}</text>
+    <text class="fw-cat {{item.dark ? 'dark' : ''}}" wx:for="{{catLabels}}" wx:key="key" style="left: {{item.x}}rpx; top: {{item.y}}rpx;">{{item.name}}</text>
+  </view>
+
+  <view class="fw-focus">
+    <text class="fw-dot" style="background: {{focusColor}};"></text>
+    <text class="fw-focus-t">{{focusName}}</text>
+  </view>
+  <view class="chips fw-tags">
+    <view class="chip {{item.on ? 'on' : ''}}" wx:for="{{current}}" wx:key="name" style="{{item.on ? 'background:' + focusColor + ';' : ''}}" bindtap="toggle" data-name="{{item.name}}">{{item.name}}</view>
+    <view class="chip fw-add" wx:if="{{!adding}}" bindtap="openAdd">＋ 自定义</view>
+  </view>
+
+  <view class="fw-addrow" wx:if="{{adding}}">
+    <input class="fw-input" focus maxlength="8" placeholder="在“{{focusName}}”下新增" value="{{newName}}" bindinput="onNewName" bindconfirm="confirmAdd" />
+    <view class="fw-btn ok" bindtap="confirmAdd">添加</view>
+    <view class="fw-btn" bindtap="cancelAdd">取消</view>
+  </view>
+</view>

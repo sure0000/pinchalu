@@ -1,0 +1,240 @@
+page {
+  --tea: #4a6b4f;
+  --tea-d: #38543c;
+  --line: #e4dccb;
+  --muted: #8a8576;
+  --warn: #b5651d;
+  --danger: #b3402f;
+  --paper: #fffdf8;
+  --chip: #f0eadb;
+  background: #f6f1e7;
+  color: #2b2a26;
+  font-size: 30rpx;
+}
+
+.page {
+  padding: 24rpx 24rpx 220rpx;
+}
+
+.card {
+  background: var(--paper);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.sec {
+  font-size: 28rpx;
+  color: var(--muted);
+  margin-bottom: 16rpx;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+.link {
+  color: var(--tea);
+  font-size: 28rpx;
+  padding: 12rpx 0 12rpx 24rpx;
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.chip {
+  padding: 0 28rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  background: var(--chip);
+  font-size: 28rpx;
+  white-space: nowrap;
+}
+
+.chip.on {
+  background: var(--tea);
+  color: #fff;
+}
+
+.btn {
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  background: var(--chip);
+  color: #2b2a26;
+}
+
+.btn-primary {
+  background: var(--tea);
+  color: #fff;
+}
+
+.btn-text {
+  background: transparent;
+}
+
+.foot {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20rpx 24rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #f6f1e7;
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 20rpx;
+}
+
+.foot .btn {
+  flex: 1;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 96rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.field .k {
+  width: 160rpx;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.field .v {
+  flex: 1;
+}
+
+.field input {
+  flex: 1;
+  height: 96rpx;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  background: #f6e3cf;
+  color: var(--warn);
+}
+
+.stars {
+  color: #d9a441;
+  letter-spacing: 2rpx;
+}
+
+/* 茶柜、器柜：搜索框旁的“管理”，批量管理时的勾选圈和底栏 */
+.tools {
+  margin-bottom: 24rpx;
+}
+
+.tools .search {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.manage {
+  padding: 12rpx 0 12rpx 28rpx;
+  color: var(--tea);
+  font-size: 28rpx;
+}
+
+.shelf.picking {
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+}
+
+.picking .cell {
+  position: relative;
+}
+
+.tick {
+  position: absolute;
+  top: -12rpx;
+  right: -12rpx;
+  z-index: 2;
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 40rpx;
+  border-radius: 50%;
+  border: 3rpx solid #fff;
+  box-sizing: border-box;
+  background: rgba(43, 42, 38, 0.22);
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.12);
+  color: #fff;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.tick.on {
+  background: var(--tea);
+}
+
+.batch {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 24rpx 40rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: var(--paper);
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
+  font-size: 28rpx;
+}
+
+.b-all {
+  color: var(--tea);
+  padding-right: 24rpx;
+}
+
+.b-n {
+  flex: 1;
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+.b-act {
+  margin-left: 16rpx;
+  padding: 0 24rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  background: var(--chip);
+  color: #5d594f;
+  font-size: 26rpx;
+}
+
+.b-act.danger {
+  background: #f6e3de;
+  color: var(--danger);
+}
+
+.b-acts.dis {
+  opacity: 0.4;
+}

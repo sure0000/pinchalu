@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "茶柜",
+  "usingComponents": {
+    "tea-cover": "/components/tea-cover/tea-cover"
+  }
+}

@@ -1,0 +1,30 @@
+<view class="rv {{steep ? 'steep' : ''}}">
+  <view class="rv-h">汤色</view>
+  <view class="rv-liquors">
+    <view class="rv-liq {{item.on ? 'on' : ''}}" wx:for="{{liquors}}" wx:key="name" bindtap="pickLiquor" data-name="{{item.name}}">
+      <view class="rv-cup" style="background: {{item.color}};"></view>
+      <text class="rv-liq-t">{{item.name}}</text>
+    </view>
+  </view>
+  <view class="chips rv-small">
+    <view class="chip {{item.on ? 'on' : ''}}" wx:for="{{clarity}}" wx:key="name" bindtap="pickClarity" data-name="{{item.name}}">{{item.name}}</view>
+  </view>
+
+  <view class="rv-h">{{steep ? '香气与滋味强度' : '香气与滋味'}} <text class="rv-hint">点圆点打 1–5 分，再点一次清零</text></view>
+  <radar wx:if="{{!steep}}" dims="{{dimNames}}" values="{{radar}}" size="{{400}}" />
+  <view class="rv-rows">
+    <view class="rv-row" wx:for="{{rows}}" wx:for-item="r" wx:key="key">
+      <text class="rv-k">{{r.name}}</text>
+      <view class="rv-dots">
+        <view class="rv-dot {{n <= r.v ? 'on' : ''}}" wx:for="{{levels}}" wx:for-item="n" wx:key="*this" bindtap="setScore" data-key="{{r.key}}" data-n="{{n}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{!steep}}">
+  <view class="rv-h">叶底</view>
+  <view class="chips rv-small">
+    <view class="chip {{item.on ? 'on' : ''}}" wx:for="{{leaf}}" wx:key="name" bindtap="toggleLeaf" data-name="{{item.name}}">{{item.name}}</view>
+  </view>
+  </block>
+</view>

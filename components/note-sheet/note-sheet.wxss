@@ -1,0 +1,58 @@
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  max-height: 88vh;
+  padding: 28rpx 28rpx calc(28rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: var(--paper);
+  border-radius: 28rpx 28rpx 0 0;
+  animation: up 0.2s ease-out;
+}
+
+@keyframes up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.close {
+  color: var(--muted);
+  padding: 20rpx 0 20rpx 24rpx;
+}
+
+.body {
+  max-height: 58vh;
+}
+
+.line {
+  height: 88rpx;
+  margin: 20rpx 0;
+  padding: 0 28rpx;
+  background: var(--chip);
+  border-radius: 44rpx;
+}

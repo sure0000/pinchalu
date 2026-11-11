@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "器柜",
+  "usingComponents": {
+    "ware-cover": "/components/ware-cover/ware-cover"
+  }
+}

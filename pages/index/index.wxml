@@ -1,0 +1,81 @@
+<view class="page home">
+  <view class="sync row between" wx:if="{{pending}}" bindtap="retrySync">
+    <text>{{pending}} 条记录未同步</text>
+    <text>重试</text>
+  </view>
+
+  <!-- 今日茶历 -->
+  <view class="almanac">
+    <view class="row between">
+      <text class="term">{{season.term}}</text>
+      <text class="date">{{season.label}} · {{dateText}}</text>
+    </view>
+    <text class="rule">{{season.text}}</text>
+    <text class="rule">{{slotInfo.name}}（{{slotInfo.range}}）{{slotInfo.text}}</text>
+  </view>
+
+  <!-- 时辰：点哪个时辰，下面就换成那个时辰的推荐 -->
+  <view class="clock">
+    <view class="hour {{item.key === slot ? 'on' : ''}}" wx:for="{{slots}}" wx:key="key" bindtap="pickSlot" data-key="{{item.key}}">
+      <text class="h-fam" style="color: {{item.color}};">{{item.famName}}</text>
+      <text class="h-range">{{item.range}}</text>
+      <view class="h-bar" style="background: {{item.color}};"></view>
+      <view class="now" wx:if="{{item.key === nowSlot}}"></view>
+    </view>
+  </view>
+
+  <!-- 最适宜的一类：左右滑动挑一款，点罐即开泡，长按看详情 -->
+  <view class="head row between" wx:if="{{deck.length}}">
+    <text>{{slot === nowSlot ? '此刻宜饮' : slotInfo.name + '宜饮'}} · {{deckName}}</text>
+    <text class="count" wx:if="{{deck.length > 1}}">{{cur + 1}} / {{deck.length}}</text>
+  </view>
+  <swiper class="deck" wx:if="{{deck.length}}" current="{{cur}}" previous-margin="150rpx" next-margin="150rpx" bindchange="onSwipe">
+    <swiper-item wx:for="{{deck}}" wx:key="key">
+      <view class="slide {{index === cur ? 'cur' : ''}}" bindtap="onDeck" bindlongpress="goTea" data-i="{{index}}" data-id="{{item.id}}">
+        <view class="slide-can" style="--c: {{item.gray ? '#e4e0d7' : item.color}};">
+          <tea-cover name="{{item.name}}" src="{{item.src}}" color="{{item.color}}" shape="{{item.shape}}" gray="{{item.gray}}" badge="{{item.badge}}" seal="{{item.family ? '' : '泡'}}" />
+        </view>
+        <text class="name {{item.gray ? 'dim' : ''}}">{{item.family ? '添一款' + item.name : item.name}}</text>
+        <text class="reason">{{item.reason}}</text>
+        <text class="effect" style="color: {{item.gray ? '#b3ad9f' : item.color}};">品性 · {{item.effect}}</text>
+        <text class="meta" wx:if="{{item.meta}}">{{item.meta}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 也宜：其他类的备选、缺的茶类、随手泡 -->
+  <view class="also" wx:if="{{tiles.length}}">也宜</view>
+  <view class="grid">
+    <view class="cell" wx:for="{{tiles}}" wx:key="key" bindtap="onTile" bindlongpress="goTea" data-i="{{index}}" data-id="{{item.id}}">
+      <tea-cover name="{{item.name}}" src="{{item.src}}" color="{{item.color}}" shape="{{item.shape}}" gray="{{item.gray}}" badge="{{item.badge}}" />
+      <text class="cap {{item.gray ? 'dim' : ''}}">{{item.name}}</text>
+      <text class="sub">{{item.reason}}</text>
+    </view>
+    <view class="cell" bindtap="goTimer">
+      <tea-cover kind="add" />
+      <text class="cap dim">随手泡</text>
+    </view>
+  </view>
+
+  <!-- 也宜模块下：近期喝过的记录 -->
+  <view class="recent" wx:if="{{recentList.length}}">
+    <view class="row between">
+      <text class="recent-title">近期喝过</text>
+      <text class="recent-count">近 {{recentList.length}} 场</text>
+    </view>
+    <view class="recent-item" wx:for="{{recentList}}" wx:key="key" bindtap="openRecent" data-i="{{index}}">
+      <view class="recent-dot" style="background: {{item.color}};"></view>
+      <view class="recent-main">
+        <text class="recent-name">{{item.name}}</text>
+        <text class="recent-cat">{{item.catName}}</text>
+      </view>
+      <view class="recent-side">
+        <text class="recent-stars" wx:if="{{item.stars}}">{{item.stars}}</text>
+        <text class="recent-date">{{item.dateText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <text class="note" wx:if="{{note}}">{{note}}</text>
+  <text class="source">时令、时辰参考李辉《茶道经》；品性为传统饮茶常识，仅作饮茶雅趣参考，不作医疗建议</text>
+</view>

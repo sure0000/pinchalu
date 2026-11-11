@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 底色 -->
+  <rect width="512" height="512" fill="#ffd45e"/>
+  <circle cx="256" cy="276" r="176" fill="#ffe28f"/>
+
+  <!-- 装饰：星星、爱心、圆点 -->
+  <g fill="#fffaf0">
+    <path d="M118 176 L126 198 L148 206 L126 214 L118 236 L110 214 L88 206 L110 198 Z"/>
+    <path d="M406 120 L411 134 L425 139 L411 144 L406 158 L401 144 L387 139 L401 134 Z"/>
+  </g>
+  <path d="M418 242 C392 224 396 198 410 198 C415 198 418 202 418 206 C418 202 421 198 426 198 C440 198 444 224 418 242 Z" fill="#ff7a85"/>
+  <g fill="#ff7a85">
+    <circle cx="96" cy="300" r="7"/>
+    <circle cx="430" cy="360" r="6"/>
+  </g>
+  <g fill="#6cc070">
+    <circle cx="150" cy="122" r="6"/>
+    <circle cx="372" cy="424" r="7"/>
+  </g>
+
+  <g stroke="#2f3b2c" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 小脚 -->
+    <ellipse cx="206" cy="414" rx="28" ry="13" fill="#fffaf0" stroke-width="8"/>
+    <ellipse cx="306" cy="414" rx="28" ry="13" fill="#fffaf0" stroke-width="8"/>
+
+    <!-- 杯耳：外描边 + 内填充 -->
+    <path d="M378 286 C436 272 442 352 372 352" fill="none" stroke-width="32"/>
+    <path d="M378 286 C436 272 442 352 372 352" fill="none" stroke="#fffaf0" stroke-width="14"/>
+
+    <!-- 杯身 -->
+    <path d="M130 246 H382 V328 C382 380 344 410 256 410 C168 410 130 380 130 328 Z" fill="#fffaf0" stroke-width="10"/>
+    <!-- 杯口与茶汤 -->
+    <ellipse cx="256" cy="246" rx="126" ry="24" fill="#fffaf0" stroke-width="10"/>
+    <ellipse cx="256" cy="248" rx="104" ry="14" fill="#8fcf86" stroke-width="6"/>
+
+    <!-- 头顶嫩芽 -->
+    <path d="M256 244 V190" fill="none" stroke-width="10"/>
+    <path d="M256 198 C220 198 194 174 190 138 C226 136 254 160 256 198 Z" fill="#6cc070" stroke-width="8"/>
+    <path d="M256 188 C292 188 320 162 324 124 C288 122 258 148 256 188 Z" fill="#8ad67f" stroke-width="8"/>
+
+    <!-- 表情：弯弯笑眼 + 张嘴笑 -->
+    <path d="M190 324 Q208 298 226 324" fill="none" stroke-width="9"/>
+    <path d="M286 324 Q304 298 322 324" fill="none" stroke-width="9"/>
+    <path d="M236 340 Q256 372 276 340 Z" fill="#ff7a85" stroke-width="7"/>
+  </g>
+
+  <!-- 腮红 -->
+  <ellipse cx="180" cy="348" rx="19" ry="11" fill="#ff9aa2" opacity="0.85"/>
+  <ellipse cx="332" cy="348" rx="19" ry="11" fill="#ff9aa2" opacity="0.85"/>
+</svg>

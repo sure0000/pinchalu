@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#6b9470"/>
+      <stop offset="1" stop-color="#38543c"/>
+    </radialGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#eadfc6"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d4e8b5"/>
+      <stop offset="1" stop-color="#9cc47c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底色：满铺方形，微信会自动裁成圆 -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- 热气 -->
+  <g fill="none" stroke="#f6f1e7" stroke-width="13" stroke-linecap="round" opacity="0.85">
+    <path d="M190 232 C168 202 208 184 188 148"/>
+    <path d="M322 232 C300 202 340 184 320 148"/>
+  </g>
+
+  <!-- 茶叶 -->
+  <path d="M256 214 C198 184 198 118 256 82 C314 118 314 184 256 214 Z" fill="url(#leaf)"/>
+  <path d="M256 206 C256 170 256 130 256 100" fill="none" stroke="#4a6b4f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M256 168 C240 160 230 148 226 136 M256 168 C272 160 282 148 286 136 M256 140 C246 134 240 126 238 118 M256 140 C266 134 272 126 274 118" fill="none" stroke="#4a6b4f" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- 茶盏 -->
+  <path d="M132 258 H380 C380 340 334 400 256 400 C178 400 132 340 132 258 Z" fill="url(#cup)"/>
+  <ellipse cx="256" cy="258" rx="124" ry="20" fill="#fffdf8"/>
+  <ellipse cx="256" cy="260" rx="108" ry="13" fill="#b5651d"/>
+  <ellipse cx="256" cy="257" rx="108" ry="10" fill="#c98a3f" opacity="0.8"/>
+
+  <!-- 盏托 -->
+  <rect x="168" y="408" width="176" height="16" rx="8" fill="#fffdf8" opacity="0.9"/>
+</svg>

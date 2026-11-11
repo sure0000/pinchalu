@@ -1,0 +1,50 @@
+<view class="page shelf {{picking ? 'picking' : ''}}">
+  <view class="tools row" wx:if="{{total}}">
+    <view class="search row">
+      <text class="s-icon">⌕</text>
+      <input class="s-input" value="{{keyword}}" placeholder="搜索茶名、产地、品种、商家" confirm-type="search" bindinput="onSearch" />
+      <text class="s-clear" wx:if="{{keyword}}" bindtap="clearSearch">×</text>
+    </view>
+    <text class="manage" bindtap="toggleManage">{{picking ? '完成' : '管理'}}</text>
+  </view>
+
+  <!-- 分组方式：全部 / 品类 / 产地 / 商家 / 品种 / 自定义 -->
+  <scroll-view class="modes" scroll-x enhanced show-scrollbar="{{false}}" wx:if="{{total}}">
+    <view class="mode {{item.key === mode ? 'on' : ''}}" wx:for="{{modes}}" wx:key="key" bindtap="pickMode" data-key="{{item.key}}">{{item.name}}</view>
+  </scroll-view>
+
+  <block wx:if="{{loaded}}">
+    <view class="sect" wx:for="{{sections}}" wx:for-item="sec" wx:key="key">
+      <view class="sect-h row between" wx:if="{{sec.title}}">
+        <text class="sect-t">{{sec.title}}</text>
+        <text class="sect-n">{{sec.countText}}</text>
+      </view>
+      <view class="grid">
+        <view class="cell" wx:for="{{sec.items}}" wx:key="key" bindtap="onTap" bindlongpress="onLongPress" data-id="{{item.id}}" data-cat="{{item.cat}}">
+          <tea-cover name="{{item.name}}" src="{{item.src}}" color="{{item.color}}" shape="{{item.shape}}" gray="{{item.gray}}" badge="{{item.badge}}" />
+          <view class="tick {{picked[item.id] ? 'on' : ''}}" wx:if="{{picking}}">{{picked[item.id] ? '✓' : ''}}</view>
+          <text class="cap {{item.gray ? 'dim' : ''}}">{{item.caption}}</text>
+          <text class="sub" wx:if="{{item.sub}}">{{item.sub}}</text>
+        </view>
+        <view class="cell" wx:if="{{sec.add && !keyword}}" bindtap="newTea">
+          <tea-cover kind="add" />
+          <text class="cap dim">添茶入柜</text>
+        </view>
+      </view>
+    </view>
+    <view class="hint" wx:if="{{mode === 'shelf' && !keyword && !picking}}">长按茶罐 → 编辑信息 / 分组，可把茶归到“口粮茶”“待客”这样的自定义分组</view>
+  </block>
+
+  <view class="none" wx:if="{{empty}}">没有找到“{{keyword}}”</view>
+
+  <!-- 批量管理底栏，替代 tabBar 的位置 -->
+  <view class="batch row" wx:if="{{picking}}">
+    <text class="b-all" bindtap="pickAll">{{allPicked ? '取消全选' : '全选'}}</text>
+    <text class="b-n">已选 {{pickedCount}}</text>
+    <view class="b-acts row {{pickedCount ? '' : 'dis'}}">
+      <text class="b-act" bindtap="batchToggleDone">{{pickedDone ? '放回茶柜' : '标记喝完'}}</text>
+      <text class="b-act" bindtap="batchShelf">加入分组</text>
+      <text class="b-act danger" bindtap="batchRemove">删除</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "茶详情",
+  "usingComponents": {
+    "tea-cover": "/components/tea-cover/tea-cover",
+    "radar": "/components/radar/radar"
+  }
+}

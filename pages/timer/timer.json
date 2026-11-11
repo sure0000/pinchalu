@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "泡茶",
+  "usingComponents": {
+    "stepper": "/components/stepper/stepper",
+    "note-sheet": "/components/note-sheet/note-sheet",
+    "ware-cover": "/components/ware-cover/ware-cover",
+    "tea-cover": "/components/tea-cover/tea-cover"
+  }
+}

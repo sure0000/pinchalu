@@ -1,0 +1,140 @@
+.photos {
+  white-space: nowrap;
+  margin-bottom: 24rpx;
+}
+
+.photo {
+  display: inline-block;
+  width: 420rpx;
+  height: 420rpx;
+  margin-right: 16rpx;
+  border-radius: 20rpx;
+  background: var(--chip);
+}
+
+.photo.solo {
+  width: 100%;
+  height: 460rpx;
+  margin-right: 0;
+}
+
+/* 没有照片时的大茶叶罐 */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 40rpx 0 28rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(180deg, #efe8d8 0%, #f6f1e7 100%);
+}
+
+.hero-can {
+  width: 220rpx;
+}
+
+.hero-add {
+  margin-top: 24rpx;
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tname {
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.info {
+  margin-top: 20rpx;
+  padding-top: 8rpx;
+  border-top: 2rpx solid var(--chip);
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 14rpx 0;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.info-k {
+  width: 120rpx;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.info-v {
+  flex: 1;
+  min-width: 0;
+}
+
+.shelves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.shelf {
+  padding: 0 18rpx;
+  border-radius: 8rpx;
+  background: var(--chip);
+  color: var(--tea);
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+
+/* 统计 */
+.stats {
+  display: flex;
+  padding: 28rpx 0;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat + .stat {
+  border-left: 2rpx solid var(--chip);
+}
+
+.stat-v {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--tea-d);
+}
+
+.stat-k {
+  margin-top: 6rpx;
+  color: var(--muted);
+  font-size: 22rpx;
+}
+
+.badge.done {
+  background: var(--chip);
+  color: var(--muted);
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.trow {
+  padding: 18rpx 0;
+  font-size: 28rpx;
+  border-top: 2rpx solid var(--chip);
+}
+
+.none {
+  text-align: center;
+  padding: 40rpx 0;
+}

@@ -1,0 +1,20 @@
+<view class="wc k-{{kind}} {{kind === 'glass' ? 'm-glass' : mclass}} {{gray ? 'gray' : ''}}" style="--c: {{color}};">
+  <view class="niche">
+    <block wx:if="{{localSrc && kind !== 'add'}}">
+      <image class="img-bg" src="{{localSrc}}" mode="aspectFill" />
+      <image class="img" src="{{localSrc}}" mode="aspectFit" lazy-load />
+    </block>
+    <block wx:elif="{{kind !== 'add'}}">
+      <view class="board"></view>
+      <view class="p p1"></view>
+      <view class="p p2"></view>
+      <view class="p p3"></view>
+      <view class="p p4"></view>
+      <view class="p p5"></view>
+      <view class="tea"></view>
+      <text class="cap" wx:if="{{cap}}">{{cap}}</text>
+    </block>
+    <text wx:else class="plus">＋</text>
+  </view>
+  <view class="badge" wx:if="{{badge}}">{{badge}}</view>
+</view>

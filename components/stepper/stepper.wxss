@@ -1,0 +1,43 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 104rpx;
+}
+
+.stepper.off {
+  opacity: 0.4;
+}
+
+.label {
+  color: #8a8576;
+}
+
+.ctrl {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  width: 88rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-radius: 44rpx;
+  background: #f0eadb;
+  font-size: 36rpx;
+}
+
+.val {
+  min-width: 170rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.unit {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #8a8576;
+  margin-left: 6rpx;
+}

@@ -1,0 +1,95 @@
+<view class="page">
+  <view class="card">
+    <view class="field">
+      <text class="k">名称 *</text>
+      <input value="{{name}}" maxlength="30" placeholder="如：甜白釉盖碗" data-key="name" bindinput="onInput" />
+    </view>
+    <view class="sec" style="margin-top: 24rpx;">器型 *</view>
+    <view class="chips">
+      <view class="chip {{item.code === kind ? 'on' : ''}}" wx:for="{{kinds}}" wx:key="code" bindtap="pickKind" data-code="{{item.code}}">{{item.name}}</view>
+    </view>
+    <view class="sec" style="margin-top: 28rpx;">材质</view>
+    <view class="chips">
+      <view class="chip {{item.code === material ? 'on' : ''}}" wx:for="{{materials}}" wx:key="code" bindtap="pickMaterial" data-code="{{item.code}}">
+        <text class="dot" style="background: {{item.color}};"></text>{{item.name}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="field">
+      <text class="k">容量</text>
+      <input type="number" value="{{capacity}}" maxlength="4" placeholder="ml，选作主泡器时按它定水量" data-key="capacity" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="k">作者/窑口</text>
+      <input value="{{maker}}" maxlength="20" placeholder="如：景德镇某窑、宜兴某师傅" data-key="maker" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="k">备注</text>
+      <input value="{{note}}" maxlength="100" placeholder="如：出水快，适合岩茶" data-key="note" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">宜泡</text>
+      <text class="muted tip">可多选；不选即百搭。紫砂讲究一壶不侍二茶</text>
+    </view>
+    <view class="chips">
+      <view class="chip {{item.on ? 'on' : ''}}" wx:for="{{classOptions}}" wx:key="code" bindtap="toggleClass" data-code="{{item.code}}">{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">照片（{{photos.length}}/{{maxPhotos}}）</text>
+    </view>
+    <view class="photos">
+      <view class="ph" wx:for="{{photos}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-i="{{index}}" />
+        <view class="del" catchtap="removePhoto" data-i="{{index}}">×</view>
+        <view class="edit" catchtap="editPhoto" data-i="{{index}}">编辑</view>
+        <view class="cover-tag" wx:if="{{index === 0}}">封面</view>
+        <view class="cover-tag set" wx:else catchtap="makeCover" data-i="{{index}}">设为封面</view>
+      </view>
+      <view class="ph add" wx:if="{{photos.length < maxPhotos}}" bindtap="addPhoto">
+        <text class="plus">＋</text>
+        <text class="muted">器身 / 底款</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="sec">来源</view>
+    <view class="chips">
+      <view class="chip {{item.code === sourceType ? 'on' : ''}}" wx:for="{{sourceTypes}}" wx:key="code" bindtap="pickSource" data-code="{{item.code}}">{{item.name}}</view>
+    </view>
+    <view class="field" style="margin-top: 12rpx;">
+      <text class="k">{{sourceLabel}}</text>
+      <input value="{{sourceName}}" maxlength="30" placeholder="{{sourceHint}}" data-key="sourceName" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="k">入手日期</text>
+      <picker class="v" mode="date" value="{{acquired || today}}" end="{{today}}" bindchange="pickAcquired">
+        <text wx:if="{{acquired}}">{{acquired}}</text>
+        <text class="ph-text" wx:else>选择日期</text>
+      </picker>
+      <text class="link" wx:if="{{acquired}}" bindtap="clearAcquired">清除</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{isEdit}}">
+    <view class="field">
+      <text class="k">收起不用</text>
+      <text class="v muted">器柜里灰着排在后，泡茶时不再列出</text>
+      <switch checked="{{retired}}" color="#4a6b4f" bindchange="toggleRetired" />
+    </view>
+  </view>
+
+  <view class="btn btn-text danger" wx:if="{{isEdit}}" bindtap="remove">删除这件茶器</view>
+
+  <view class="foot">
+    <view class="btn btn-primary" bindtap="save">保存</view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "本场汇总",
+  "usingComponents": {
+    "stepper": "/components/stepper/stepper",
+    "flavor-wheel": "/components/flavor-wheel/flavor-wheel",
+    "review-panel": "/components/review-panel/review-panel",
+    "note-sheet": "/components/note-sheet/note-sheet",
+    "steep-trend": "/components/steep-trend/steep-trend"
+  }
+}

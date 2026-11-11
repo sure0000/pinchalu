@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 半调圆点底纹 -->
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="3.2" fill="#a9d92f"/>
+    </pattern>
+
+    <!-- “茶”= 艹 + 人 + 木，用粗圆角笔画重新搭建 -->
+    <path id="cao" d="M160 128 H352 M212 94 V160 M300 94 V160"/>
+    <path id="ren" d="M258 172 C252 220 216 252 166 264 M252 214 C270 240 308 256 352 264"/>
+    <path id="mu" d="M158 324 H354 M256 288 V404 M250 352 C236 380 206 396 172 404 M262 352 C276 380 308 396 342 404"/>
+  </defs>
+
+  <!-- 底色 + 半调纹理 -->
+  <rect width="512" height="512" fill="#c9f24d"/>
+  <rect width="512" height="512" fill="url(#dots)"/>
+
+  <!-- 大圆：硬阴影 + 主体 -->
+  <circle cx="270" cy="264" r="176" fill="#16161a"/>
+  <circle cx="256" cy="250" r="176" fill="#3d5afe" stroke="#16161a" stroke-width="10"/>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(256 252) scale(0.88) translate(-256 -252)">
+    <!-- 字形硬阴影 -->
+    <g transform="translate(10 12)" stroke="#16161a" stroke-width="48">
+      <use xlink:href="#cao"/><use xlink:href="#ren"/><use xlink:href="#mu"/>
+    </g>
+    <!-- 黑描边 -->
+    <g stroke="#16161a" stroke-width="48">
+      <use xlink:href="#cao"/><use xlink:href="#ren"/><use xlink:href="#mu"/>
+    </g>
+    <!-- 三个部件三种颜色 -->
+    <use xlink:href="#cao" stroke="#ff5fa2" stroke-width="28"/>
+    <use xlink:href="#ren" stroke="#ffe94d" stroke-width="28"/>
+    <use xlink:href="#mu" stroke="#fffaf0" stroke-width="28"/>
+  </g>
+
+  <!-- 贴纸点缀 -->
+  <g stroke="#16161a" stroke-linejoin="round" stroke-linecap="round">
+    <path transform="translate(6 -8)" d="M410 80 Q418 110 448 118 Q418 126 410 156 Q402 126 372 118 Q402 110 410 80Z" fill="#ffe94d" stroke-width="6"/>
+    <circle cx="112" cy="150" r="17" fill="#ff5fa2" stroke-width="6"/>
+    <path d="M426 366 V394 M412 380 H440" fill="none" stroke-width="9"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "flavor-wheel": "/components/flavor-wheel/flavor-wheel",
+    "taste-picker": "/components/taste-picker/taste-picker",
+    "review-panel": "/components/review-panel/review-panel"
+  }
+}

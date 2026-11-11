@@ -1,0 +1,163 @@
+<view class="page" wx:if="{{ready}}">
+  <view class="card">
+    <view class="row between">
+      <view>
+        <text class="tname">{{teaName}}</text>
+        <text class="cat">{{categoryName}}</text>
+        <text class="badge" wx:if="{{unsynced}}">未同步</text>
+      </view>
+      <text class="link" wx:if="{{mode !== 'manual'}}" bindtap="pickTea">{{brew.teaId ? '更换' : '补选茶'}}</text>
+    </view>
+    <view class="field" wx:if="{{brew.source === 'manual'}}">
+      <text class="k">日期</text>
+      <picker mode="date" value="{{dateValue}}" bindchange="onDate" class="v">
+        <view>{{dateValue}} ›</view>
+      </picker>
+    </view>
+    <view class="muted" wx:else>{{dateText}}</view>
+  </view>
+
+  <!-- 第一步：AI 总结与原文（计时结束后先看这里；手动补记 / 编辑也保留此卡） -->
+  <view class="card ai-draft" wx:if="{{(brew.note || voices.length) && (step === 'voice' || !stepped)}}">
+    <view class="row between">
+      <text class="sec">AI 总结</text>
+      <text class="link" wx:if="{{voices.length}}" bindtap="aiSummarize">{{aiBusy ? '整理中…' : '重新整理'}}</text>
+    </view>
+    <view class="muted ai-status" wx:if="{{aiStatus}}">{{aiStatus}}</view>
+
+    <view class="draft-block" wx:if="{{brew.note}}">
+      <text class="draft-label">AI 总结</text>
+      <text class="draft-text" user-select>{{brew.note}}</text>
+    </view>
+
+    <!-- 原文与录音：默认收起 -->
+    <view class="voice-toggle" wx:if="{{voices.length}}" bindtap="toggleVoice">
+      <text>{{voiceOpen ? '收起原文与录音 ▲' : '查看原文与录音 ▼'}}</text>
+    </view>
+    <view class="voice-detail" wx:if="{{voiceOpen}}">
+      <view class="voice-item" wx:for="{{voices}}" wx:key="id" bindtap="openVoiceEdit" data-id="{{item.id}}">
+        <view class="voice-row">
+          <text class="voice-speaker">{{item.speaker}}</text>
+          <text class="voice-text">{{item.text || '（未转写，点按补写）'}}</text>
+        </view>
+        <view class="voice-audios" wx:if="{{item.fileIDs.length}}">
+          <view class="audio-btn {{playingId === fid ? 'on' : ''}}" wx:for="{{item.fileIDs}}" wx:for-item="fid" wx:for-index="fi" wx:key="*this" catchtap="playVoice" data-fileid="{{fid}}">{{playingId === fid ? '⏸ 暂停' : '▶ 播放录音 ' + (fi + 1)}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 第一步：本场没有任何转写文字时给出说明，而不是留白 -->
+  <view class="card voice-empty" wx:if="{{stepped && step === 'voice' && !voices.length && !brew.note}}">
+    <view class="sec">语音记录</view>
+    <view class="muted">本场没有转写出的语音文字。通常是语音转写服务未配置（云函数 asr 未部署，或未配腾讯云 ASR 密钥），也可能是录音未能成功保存。</view>
+    <view class="muted">仍可点下方「下一步」手动填写专业评测。</view>
+  </view>
+
+  <!-- 第一步：看完 AI 总结与原文后，进入专业评测 -->
+  <view class="foot" wx:if="{{stepped && step === 'voice'}}">
+    <view class="btn btn-primary" bindtap="goReview">下一步 · 填写专业评测</view>
+  </view>
+
+  <!-- 第二步：整体的人工手动填写的专业评测卡 -->
+  <block wx:if="{{step === 'review'}}">
+  <view class="back" wx:if="{{stepped}}" bindtap="goVoice">‹ 返回 AI 总结与原文</view>
+
+  <view class="card remind" wx:if="{{suggest.length}}">
+    <view class="sec">评鉴建议</view>
+    <view class="muted">还可以从这些方面继续评鉴（可选）：</view>
+    <view class="chips remind-chips">
+      <view class="chip remind-chip" wx:for="{{suggest}}" wx:key="key" bindtap="scrollToMissing" data-key="{{item.key}}">{{item.name}} · 去评鉴</view>
+    </view>
+  </view>
+
+  <view class="card" id="sec-review">
+    <view class="row between">
+      <text class="sec">专业评测（手动填写）</text>
+      <text class="link" wx:if="{{steepRows.length}}" bindtap="reaggregate">按每泡重新汇总</text>
+    </view>
+    <view class="muted" wx:if="{{steepRows.length}}">已按每一泡的审评自动汇总，可手动调整；叶底只在整场记录。</view>
+    <review-panel value="{{brew.review}}" bindchange="onReview" />
+  </view>
+
+  <view class="card">
+    <view class="sec">冲泡参数（可修正）</view>
+    <stepper label="投茶量" unit="g" value="{{brew.leafG}}" step="{{0.5}}" min="{{1}}" max="{{30}}" data-key="leafG" bindchange="onParam" />
+    <stepper label="水量" unit="ml" value="{{brew.waterMl}}" step="{{10}}" min="{{30}}" max="{{500}}" data-key="waterMl" bindchange="onParam" />
+    <stepper label="水温" unit="°C" value="{{brew.tempC}}" step="{{5}}" min="{{60}}" max="{{100}}" data-key="tempC" bindchange="onParam" />
+    <stepper wx:if="{{brew.source === 'manual'}}" label="泡数" unit="泡" value="{{brew.steeps.length}}" step="{{1}}" min="{{1}}" max="{{30}}" bindchange="onCount" />
+  </view>
+
+  <view class="card" wx:if="{{steepRows.length}}" id="sec-steeps">
+    <view class="sec">每一泡（点按可编辑香气 / 滋味 / 审评）</view>
+    <view class="steep" wx:for="{{steepRows}}" wx:key="n" bindtap="editSteep" data-n="{{item.n}}">
+      <view class="row between">
+        <text class="sn">第 {{item.n}} 泡</text>
+        <view class="row">
+          <text class="muted">{{item.dur}}</text>
+          <view class="slq" wx:if="{{item.liquor}}" style="background: {{item.liquorColor}};"></view>
+          <text class="muted srev" wx:if="{{item.scored}}">{{item.scored}} 项</text>
+        </view>
+      </view>
+      <view class="sub" wx:if="{{item.tags || item.tastes || item.note}}">
+        <view wx:if="{{item.tags}}"><text class="stag">香 · {{item.tags}}</text></view>
+        <view wx:if="{{item.tastes}}"><text class="stag">味 · {{item.tastes}}</text></view>
+        <view wx:if="{{item.note}}" class="muted">{{item.note}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{steepRows.length}}">
+    <steep-trend steeps="{{trendSteeps}}" />
+  </view>
+
+  <view class="card" wx:if="{{wareText}}">
+    <view class="row between">
+      <text class="sec">茶器</text>
+      <text class="muted">{{wareText}}</text>
+    </view>
+  </view>
+
+  <view class="card" id="sec-aroma">
+    <view class="sec">香气 · 风味轮</view>
+    <flavor-wheel value="{{brew.tags}}" bindchange="onTags" />
+  </view>
+
+  <view class="card" id="sec-rating">
+    <view class="row between">
+      <text class="sec">评分与总评（可修改）</text>
+    </view>
+    <view class="rate">
+      <text class="star {{item <= brew.rating ? 'on' : ''}}" wx:for="{{[1, 2, 3, 4, 5]}}" wx:key="*this" bindtap="setRating" data-v="{{item}}">★</text>
+    </view>
+    <textarea class="note" maxlength="2000" auto-height placeholder="总评，例如：前 3 泡兰香明显，第 5 泡转甜，第 7 泡水薄；岩韵足，回甘快" value="{{brew.note}}" bindinput="onNote" />
+  </view>
+
+  <view class="btn btn-text danger" wx:if="{{mode === 'edit'}}" bindtap="remove">删除这条记录</view>
+  <view class="btn btn-text" wx:if="{{mode === 'active'}}" bindtap="discard">放弃本场</view>
+  </block>
+
+  <view class="foot" wx:if="{{step === 'review'}}">
+    <view class="btn" bindtap="shareBrew">生成小红书</view>
+    <view class="btn btn-primary" bindtap="save">保存</view>
+  </view>
+
+  <note-sheet show="{{sheetShow}}" title="{{sheetTitle}}" tags="{{sheetTags}}" tastes="{{sheetTastes}}" review="{{sheetReview}}" note="{{sheetNote}}" bindsave="saveNote" bindclose="closeNote" />
+
+  <view class="mask" wx:if="{{voiceEdit}}" bindtap="closeVoiceEdit" catchtouchmove="noop"></view>
+  <view class="pop voice-pop" wx:if="{{voiceEdit}}" catchtouchmove="noop">
+    <view class="row between">
+      <text class="pop-title">编辑这条评论</text>
+      <text class="link" bindtap="closeVoiceEdit">关闭</text>
+    </view>
+    <view class="field">
+      <text class="k">说话人</text>
+      <input class="voice-input" value="{{voiceSpeaker}}" bindinput="onVoiceSpeaker" placeholder="如：老王" />
+    </view>
+    <textarea class="voice-textarea" value="{{voiceText}}" bindinput="onVoiceText" placeholder="这段说了什么（可留空）" maxlength="500" />
+    <view class="row between voice-actions">
+      <view class="btn btn-text danger" bindtap="removeVoice">删除这条</view>
+      <view class="btn btn-primary voice-save" bindtap="saveVoiceEdit">保存</view>
+    </view>
+  </view>
+</view>

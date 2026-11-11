@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cabinet/cabinet",
+    "pages/timer/timer",
+    "pages/summary/summary",
+    "pages/tea-edit/tea-edit",
+    "pages/tea-detail/tea-detail",
+    "pages/wares/wares",
+    "pages/ware-edit/ware-edit",
+    "pages/ware-detail/ware-detail",
+    "pages/share/share"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f6f1e7",
+    "navigationBarTitleText": "品茶录",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f6f1e7"
+  },
+  "tabBar": {
+    "color": "#8a8576",
+    "selectedColor": "#38543c",
+    "backgroundColor": "#fffdf8",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "宜饮",
+        "iconPath": "assets/tab/cup.png",
+        "selectedIconPath": "assets/tab/cup-on.png"
+      },
+      {
+        "pagePath": "pages/cabinet/cabinet",
+        "text": "茶柜",
+        "iconPath": "assets/tab/cabinet.png",
+        "selectedIconPath": "assets/tab/cabinet-on.png"
+      },
+      {
+        "pagePath": "pages/wares/wares",
+        "text": "器柜",
+        "iconPath": "assets/tab/ware.png",
+        "selectedIconPath": "assets/tab/ware-on.png"
+      }
+    ]
+  },
+  "cloud": true,
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.record": {
+      "desc": "用于品茶时语音记录大家对这款茶的评论，并转成文字"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

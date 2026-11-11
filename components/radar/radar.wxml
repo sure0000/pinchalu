@@ -1,0 +1,10 @@
+<view class="rd" style="width: {{size}}rpx; height: {{size}}rpx; --c: {{color}};">
+  <view class="rd-ring {{item.alt ? 'alt' : ''}}" wx:for="{{rings}}" wx:key="l" style="clip-path: {{item.clip}}; -webkit-clip-path: {{item.clip}};"></view>
+  <view class="rd-spoke" wx:for="{{spokes}}" wx:key="i" style="transform: rotate({{item.rot}}deg);"></view>
+  <view class="rd-area" wx:if="{{!empty}}" style="clip-path: {{area}}; -webkit-clip-path: {{area}};"></view>
+  <view class="rd-dot" wx:for="{{dots}}" wx:key="i" wx:if="{{item.on}}" style="left: {{item.x}}%; top: {{item.y}}%;"></view>
+  <view class="rd-label" wx:for="{{labels}}" wx:key="i" style="left: {{item.x}}%; top: {{item.y}}%;">
+    <text>{{item.name}}</text>
+    <text class="rd-v" wx:if="{{item.v}}">{{item.v}}</text>
+  </view>
+</view>

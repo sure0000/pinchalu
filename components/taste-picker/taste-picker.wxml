@@ -1,0 +1,11 @@
+<view class="tp">
+  <view class="tp-h">滋味变化（可多选，留空表示没记）</view>
+  <view class="tp-group" wx:for="{{groups}}" wx:key="name">
+    <view class="tp-row">
+      <text class="tp-g" style="color: {{item.color}};">{{item.name}}</text>
+      <view class="chips tp-tags">
+        <view class="chip {{tag.on ? 'on' : ''}}" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="name" style="{{tag.on ? 'background:' + item.color + ';' : ''}}" bindtap="toggle" data-name="{{tag.name}}">{{tag.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>

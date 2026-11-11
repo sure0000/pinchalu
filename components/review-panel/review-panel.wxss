@@ -1,0 +1,99 @@
+.rv.steep {
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid var(--line);
+}
+
+.rv-h {
+  margin: 28rpx 0 16rpx;
+  font-size: 26rpx;
+  color: var(--muted);
+}
+
+.rv-h:first-child {
+  margin-top: 0;
+}
+
+.rv-hint {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: #b3ad9f;
+}
+
+.rv-liquors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx 10rpx;
+  margin-bottom: 16rpx;
+}
+
+.rv-liq {
+  width: calc((100% - 50rpx) / 6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+  border-radius: 12rpx;
+  border: 2rpx solid transparent;
+}
+
+.rv-liq.on {
+  border-color: var(--tea);
+  background: #eef3ec;
+}
+
+/* 一只审评碗里的茶汤 */
+.rv-cup {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 6rpx rgba(255, 255, 255, 0.85), 0 0 0 2rpx #e4dccb;
+}
+
+.rv-liq-t {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+}
+
+.rv-small .chip {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 22rpx;
+  font-size: 24rpx;
+}
+
+.rv-rows {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+
+.rv-row {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  height: 64rpx;
+}
+
+.rv-k {
+  width: 72rpx;
+  font-size: 26rpx;
+}
+
+.rv-dots {
+  display: flex;
+  gap: 10rpx;
+}
+
+/* 圆点稍大，方便手指点 */
+.rv-dot {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #ece6d9;
+}
+
+.rv-dot.on {
+  background: var(--tea);
+}

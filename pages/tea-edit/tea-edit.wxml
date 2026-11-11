@@ -1,0 +1,99 @@
+<view class="page">
+  <view class="card">
+    <view class="field">
+      <text class="k">茶名 *</text>
+      <input value="{{name}}" maxlength="30" placeholder="如：2023 牛栏坑肉桂" data-key="name" bindinput="onInput" />
+    </view>
+    <view class="sec" style="margin-top: 24rpx;">茶类 *</view>
+    <view class="chips">
+      <view class="chip {{item.code === category ? 'on' : ''}}" wx:for="{{categories}}" wx:key="code" bindtap="pickCategory" data-code="{{item.code}}">{{item.name}}</view>
+    </view>
+  </view>
+
+  <block wx:if="{{!lite}}">
+    <view class="card">
+      <view class="row between">
+        <text class="sec">照片（{{photos.length}}/{{maxPhotos}}）</text>
+        <text class="muted tip" wx:if="{{photos.length > 1}}">点“编辑”裁剪，点“设为封面”调首图</text>
+        <text class="muted tip" wx:elif="{{photos.length === 1}}">点“编辑”裁剪照片</text>
+      </view>
+      <view class="photos">
+        <view class="ph" wx:for="{{photos}}" wx:key="*this">
+          <image src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-i="{{index}}" />
+          <view class="del" catchtap="removePhoto" data-i="{{index}}">×</view>
+          <view class="edit" catchtap="editPhoto" data-i="{{index}}">编辑</view>
+          <view class="cover-tag" wx:if="{{index === 0}}">封面</view>
+          <view class="cover-tag set" wx:else catchtap="makeCover" data-i="{{index}}">设为封面</view>
+        </view>
+        <view class="ph add" wx:if="{{photos.length < maxPhotos}}" bindtap="addPhoto">
+          <text class="plus">＋</text>
+          <text class="muted">茶饼 / 包装 / 干茶</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="sec">来源</view>
+      <view class="chips">
+        <view class="chip {{item.code === sourceType ? 'on' : ''}}" wx:for="{{sourceTypes}}" wx:key="code" bindtap="pickSource" data-code="{{item.code}}">{{item.name}}</view>
+      </view>
+      <view class="field" style="margin-top: 12rpx;">
+        <text class="k">{{sourceLabel}}</text>
+        <input value="{{sourceName}}" maxlength="30" placeholder="{{sourceHint}}" data-key="sourceName" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <text class="k">入手日期</text>
+        <picker class="v" mode="date" value="{{acquired || today}}" end="{{today}}" bindchange="pickAcquired">
+          <text wx:if="{{acquired}}">{{acquired}}</text>
+          <text class="ph-text" wx:else>选择日期</text>
+        </picker>
+        <text class="link" wx:if="{{acquired}}" bindtap="clearAcquired">清除</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="field">
+        <text class="k">产地</text>
+        <input value="{{origin}}" maxlength="20" placeholder="省份开头，如：福建武夷山" data-key="origin" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <text class="k">品种</text>
+        <input value="{{variety}}" maxlength="20" placeholder="如：肉桂、水仙、福鼎大白茶" data-key="variety" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <text class="k">年份</text>
+        <input type="number" value="{{year}}" maxlength="4" placeholder="如：2023" data-key="year" bindinput="onInput" />
+      </view>
+      <view class="field">
+        <text class="k">备注</text>
+        <input value="{{note}}" maxlength="100" placeholder="如：存在紫砂罐里" data-key="note" bindinput="onInput" />
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="row between">
+        <text class="sec">自定义分组</text>
+        <text class="muted tip">可多选，茶柜里按分组查看</text>
+      </view>
+      <view class="chips">
+        <view class="chip {{item.on ? 'on' : ''}}" wx:for="{{shelfOptions}}" wx:key="name" bindtap="toggleShelf" data-name="{{item.name}}">{{item.name}}</view>
+        <view class="chip add-chip" bindtap="addShelf">＋ 新分组</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{isEdit}}">
+      <view class="field">
+        <text class="k">已喝完</text>
+        <text class="v muted">移到茶柜的“已喝完”，不再推荐</text>
+        <switch checked="{{finished}}" color="#4a6b4f" bindchange="toggleFinished" />
+      </view>
+    </view>
+  </block>
+  <view class="muted" wx:else>照片、来源等信息可稍后在茶详情页补充。</view>
+
+  <view class="btn btn-text danger" wx:if="{{isEdit}}" bindtap="remove">删除这款茶</view>
+
+  <view class="foot">
+    <view class="btn btn-primary" bindtap="save">保存</view>
+  </view>
+</view>

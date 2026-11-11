@@ -1,0 +1,155 @@
+.fw-picked {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.fw-pick {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  padding: 0 20rpx;
+  border-radius: 28rpx;
+  background: var(--chip);
+  font-size: 24rpx;
+}
+
+.fw-dot {
+  display: inline-block;
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fw-wheel {
+  position: relative;
+  margin: 8rpx auto 20rpx;
+}
+
+.fw-outer,
+.fw-inner,
+.fw-hole {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.fw-outer {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* 内圈直径 = 56%，与外圈之间留一道白缝 */
+.fw-inner {
+  left: 22%;
+  top: 22%;
+  right: 22%;
+  bottom: 22%;
+  box-shadow: 0 0 0 4rpx #fffdf8;
+}
+
+.fw-hole {
+  left: 37.5%;
+  top: 37.5%;
+  right: 37.5%;
+  bottom: 37.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fffdf8;
+  box-shadow: 0 0 0 4rpx #fffdf8;
+}
+
+.fw-hole-n {
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--tea-d);
+}
+
+.fw-hole-t {
+  font-size: 18rpx;
+  color: var(--muted);
+}
+
+.fw-sub,
+.fw-cat {
+  position: absolute;
+  white-space: nowrap;
+  pointer-events: none;
+  color: rgba(43, 42, 38, 0.72);
+}
+
+.fw-sub {
+  font-size: 22rpx;
+  letter-spacing: 2rpx;
+}
+
+.fw-cat {
+  transform: translate(-50%, -50%);
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.fw-sub.dark,
+.fw-cat.dark {
+  color: #fff;
+}
+
+.fw-focus {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.fw-focus-t {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.fw-tags .chip {
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 26rpx;
+}
+
+.chip.fw-add {
+  background: transparent;
+  border: 1rpx dashed var(--muted);
+  color: var(--muted);
+  box-sizing: border-box;
+  line-height: 62rpx;
+}
+
+.fw-addrow {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.fw-input {
+  flex: 1;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background: var(--chip);
+  border-radius: 40rpx;
+}
+
+.fw-btn {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 16rpx;
+  color: var(--muted);
+}
+
+.fw-btn.ok {
+  color: var(--tea);
+  font-weight: 600;
+}

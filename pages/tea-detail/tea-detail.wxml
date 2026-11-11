@@ -1,0 +1,99 @@
+<view class="page" wx:if="{{loaded && tea}}">
+  <scroll-view class="photos" scroll-x wx:if="{{tea.photos.length}}" enhanced show-scrollbar="{{false}}">
+    <image class="photo {{tea.photos.length === 1 ? 'solo' : ''}}" wx:for="{{tea.photos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-i="{{index}}" />
+  </scroll-view>
+
+  <!-- 没有照片：放一只大茶叶罐 -->
+  <view class="hero" wx:else>
+    <view class="hero-can">
+      <tea-cover name="{{tea.name}}" color="{{cover.color}}" shape="{{cover.shape}}" gray="{{tea.finished}}" badge="{{tea.finished ? '喝完' : ''}}" />
+    </view>
+    <text class="hero-add" bindtap="editTea">＋ 添加照片</text>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <view class="title">
+        <text class="tname">{{tea.name}}</text>
+        <text class="badge done" wx:if="{{tea.finished}}">已喝完</text>
+      </view>
+      <text class="link" bindtap="editTea">编辑</text>
+    </view>
+    <view class="cat" style="color: {{cover.color}};">{{categoryName}}<text class="effect" wx:if="{{cover.effect}}"> · {{cover.effect}}</text></view>
+
+    <view class="info">
+      <view class="info-row" wx:for="{{rows}}" wx:key="k">
+        <text class="info-k">{{item.k}}</text>
+        <text class="info-v">{{item.v}}</text>
+      </view>
+      <view class="info-row" wx:if="{{tea.shelves.length}}">
+        <text class="info-k">分组</text>
+        <view class="info-v shelves">
+          <text class="shelf" wx:for="{{tea.shelves}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="fill muted" wx:if="{{rows.length < 3}}" bindtap="editTea">补充产地、品种、商家等信息 ›</view>
+  </view>
+
+  <view class="card stats">
+    <view class="stat" wx:for="{{stats}}" wx:key="k">
+      <text class="stat-v">{{item.v}}</text>
+      <text class="stat-k">{{item.k}}</text>
+    </view>
+  </view>
+
+  <!-- 风味画像：审评雷达（各场平均）+ 香型分布 + 常喝出的描述词 -->
+  <view class="card" wx:if="{{profile.reviewed || flavors.length}}">
+    <view class="row between">
+      <text class="sec">风味画像</text>
+      <text class="muted" wx:if="{{profile.reviewed}}">{{profile.reviewed}} 场审评平均</text>
+    </view>
+    <radar wx:if="{{profile.reviewed}}" dims="{{dimNames}}" values="{{profile.radar}}" color="{{cover.color}}" size="{{420}}" />
+    <view class="liquor" wx:if="{{profile.liquor}}">
+      <view class="liquor-cup" style="background: {{profile.liquorColor}};"></view>
+      <text>汤色多为{{profile.liquor}}</text>
+    </view>
+    <view class="fams" wx:if="{{profile.families.length}}">
+      <view class="fam" wx:for="{{profile.families}}" wx:key="name">
+        <text class="fam-k">{{item.name}}</text>
+        <view class="fam-bar"><view class="fam-fill" style="width: {{item.pct}}%; background: {{item.color}};"></view></view>
+        <text class="fam-n">{{item.n}}</text>
+      </view>
+    </view>
+    <view class="flavors" wx:if="{{flavors.length}}">
+      <text class="flavor" wx:for="{{flavors}}" wx:key="name"><text class="dot" style="background: {{item.color}};"></text>{{item.name}}<text class="flavor-n" wx:if="{{item.n > 1}}"> ×{{item.n}}</text></text>
+    </view>
+  </view>
+
+  <view class="row between head">
+    <text class="sec">冲泡记录（{{brews.length}}）</text>
+    <text class="link" bindtap="addManual">＋ 补记一条</text>
+  </view>
+
+  <view class="muted none" wx:if="{{!brews.length}}">还没有冲泡记录，去泡一壶吧。</view>
+
+  <view class="card" wx:for="{{brews}}" wx:key="_id" bindtap="openBrew" data-id="{{item._id}}">
+    <view class="row between">
+      <view>
+        <text class="d">{{item.dateText}}</text>
+        <text class="badge" wx:if="{{item.unsynced}}">未同步</text>
+        <text class="badge m" wx:if="{{item.manual}}">补记</text>
+      </view>
+      <view class="row">
+        <text class="stars">{{item.stars}}</text>
+        <text class="xhs" catchtap="shareBrew" data-id="{{item._id}}">生成小红书</text>
+      </view>
+    </view>
+    <view class="muted p">{{item.params}} · {{item.count}}<text wx:if="{{item.wareText}}"> · {{item.wareText}}</text></view>
+    <view class="tags" wx:if="{{item.tags.length || item.liquor}}">
+      <text class="tag lq" wx:if="{{item.liquor}}"><text class="dot" style="background: {{item.liquorColor}};"></text>{{item.liquor}}</text>
+      <text class="tag" wx:for="{{item.tags}}" wx:for-item="t" wx:key="*this">{{t}}</text>
+    </view>
+    <view class="line" wx:if="{{item.note}}">{{item.note}}</view>
+  </view>
+
+  <view class="foot">
+    <view class="btn btn-primary" bindtap="brew">用这款泡茶</view>
+  </view>
+</view>

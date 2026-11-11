@@ -1,0 +1,24 @@
+<view class="st" wx:if="{{!empty}}">
+  <view class="st-h">逐泡滋味</view>
+  <view class="st-tl">
+    <view class="st-step" wx:for="{{timeline}}" wx:key="n">
+      <text class="st-sn">第{{item.n}}泡</text>
+      <view class="st-chips">
+        <text class="st-chip" wx:for="{{item.chips}}" wx:for-item="c" wx:key="name" style="color: {{c.color}}; border-color: {{c.color}};">{{c.name}}</text>
+        <text class="st-none" wx:if="{{!item.chips.length}}">未记</text>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{showChart}}">
+    <view class="st-h">逐泡强度 <text class="st-hint">纵轴 0–5 分，苦、涩为暖色，其余为茶绿</text></view>
+    <view class="st-legend">
+      <view class="st-lg" wx:for="{{dims}}" wx:key="key">
+        <text class="st-lg-dot" style="background: {{item.color}};"></text>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+    <canvas type="2d" id="trend" class="st-canvas"></canvas>
+  </block>
+</view>
+<view class="st-empty" wx:else>每一泡还没记滋味或强度，点上方“每一泡”逐泡补上。</view>

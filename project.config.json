@@ -1,0 +1,28 @@
+{
+  "description": "品茶录",
+  "miniprogramRoot": "",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "compileType": "miniprogram",
+  "libVersion": "3.17.6",
+  "appid": "wxb468114b66cd1490",
+  "projectname": "pinchabu",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "design" },
+      { "type": "suffix", "value": ".md" }
+    ]
+  },
+  "condition": {}
+}

@@ -1,0 +1,280 @@
+.photos {
+  white-space: nowrap;
+  margin-bottom: 24rpx;
+}
+
+.photo {
+  display: inline-block;
+  width: 420rpx;
+  height: 420rpx;
+  margin-right: 16rpx;
+  border-radius: 20rpx;
+  background: var(--chip);
+}
+
+.photo.solo {
+  width: 100%;
+  height: 460rpx;
+  margin-right: 0;
+}
+
+/* 没有照片时的大茶叶罐 */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 40rpx 0 28rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(180deg, #efe8d8 0%, #f6f1e7 100%);
+}
+
+.hero-can {
+  width: 220rpx;
+}
+
+.hero-add {
+  margin-top: 24rpx;
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tname {
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.cat {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+}
+
+.effect {
+  color: var(--muted);
+}
+
+.info {
+  margin-top: 20rpx;
+  padding-top: 8rpx;
+  border-top: 2rpx solid var(--chip);
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 14rpx 0;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.info-k {
+  width: 120rpx;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.info-v {
+  flex: 1;
+  min-width: 0;
+}
+
+.shelves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.shelf {
+  padding: 0 18rpx;
+  border-radius: 8rpx;
+  background: var(--chip);
+  color: var(--tea);
+  font-size: 24rpx;
+  line-height: 44rpx;
+}
+
+.fill {
+  margin-top: 8rpx;
+  color: var(--tea);
+}
+
+/* 统计 */
+.stats {
+  display: flex;
+  padding: 28rpx 0;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat + .stat {
+  border-left: 2rpx solid var(--chip);
+}
+
+.stat-v {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--tea-d);
+}
+
+.stat-k {
+  margin-top: 6rpx;
+  color: var(--muted);
+  font-size: 22rpx;
+}
+
+.liquor {
+  display: flex;
+  align-items: center;
+  margin: 8rpx 0 20rpx;
+  font-size: 26rpx;
+}
+
+.liquor-cup {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 14rpx;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 5rpx rgba(255, 255, 255, 0.85), 0 0 0 2rpx #e4dccb;
+}
+
+.fams {
+  margin-bottom: 20rpx;
+}
+
+.fam {
+  display: flex;
+  align-items: center;
+  height: 44rpx;
+  font-size: 24rpx;
+}
+
+.fam-k {
+  width: 80rpx;
+  color: #5d594f;
+}
+
+.fam-bar {
+  flex: 1;
+  height: 14rpx;
+  border-radius: 7rpx;
+  background: var(--chip);
+  overflow: hidden;
+}
+
+.fam-fill {
+  height: 100%;
+  border-radius: 7rpx;
+}
+
+.fam-n {
+  width: 50rpx;
+  text-align: right;
+  color: var(--muted);
+}
+
+.dot {
+  display: inline-block;
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 8rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.flavors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+
+.flavor {
+  padding: 0 20rpx;
+  border-radius: 28rpx;
+  background: #f6ead6;
+  color: #8a5a2b;
+  font-size: 24rpx;
+  line-height: 52rpx;
+}
+
+.flavor-n {
+  color: #b8925f;
+  font-size: 20rpx;
+}
+
+.head {
+  margin-top: 8rpx;
+}
+
+.none {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.d {
+  font-weight: 600;
+  margin-right: 12rpx;
+}
+
+.xhs {
+  margin-left: 20rpx;
+  padding: 8rpx 22rpx;
+  border-radius: 30rpx;
+  background: #fbe7e3;
+  color: #d8483a;
+  font-size: 24rpx;
+  line-height: 1;
+}
+
+.badge.m {
+  background: var(--chip);
+  color: var(--muted);
+  margin-left: 8rpx;
+}
+
+.badge.done {
+  background: var(--chip);
+  color: var(--muted);
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.p {
+  margin-top: 8rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 12rpx;
+}
+
+.tag {
+  padding: 0 14rpx;
+  border-radius: 6rpx;
+  background: var(--chip);
+  color: #6f6a5d;
+  font-size: 22rpx;
+  line-height: 40rpx;
+}
+
+.line {
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

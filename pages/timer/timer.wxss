@@ -1,0 +1,624 @@
+.tea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 88rpx;
+  padding: 0 24rpx;
+  margin-top: 12rpx;
+  border-radius: 16rpx;
+  background: var(--chip);
+}
+
+.tea.on {
+  background: var(--tea);
+  color: #fff;
+}
+
+/* 从某款茶进来：这款茶的说明（与茶详情一致的居中罐面 + 名称 + 信息行） */
+.tf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rpx 0;
+}
+
+.tf-can {
+  width: 140rpx;
+}
+
+.tf-name {
+  margin-top: 12rpx;
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tf-cat {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.tf-effect {
+  color: var(--muted);
+}
+
+.tf-rows {
+  margin-top: 16rpx;
+  padding-top: 4rpx;
+  border-top: 2rpx solid var(--chip);
+}
+
+.tf-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.tf-k {
+  width: 120rpx;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.tf-v {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 计时页 */
+.brew {
+  padding: 24rpx 24rpx 380rpx;
+}
+
+.top {
+  text-align: center;
+}
+
+.who {
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.cat {
+  margin-left: 14rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: var(--tea);
+}
+
+.count {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: var(--muted);
+}
+
+.ring {
+  width: 440rpx;
+  height: 440rpx;
+  margin: 28rpx auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-in {
+  width: 392rpx;
+  height: 392rpx;
+  border-radius: 50%;
+  background: #f6f1e7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-in.done {
+  background: #e6efe3;
+}
+
+.clock {
+  font-size: 110rpx;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat {
+  margin-top: 8rpx;
+  font-size: 28rpx;
+  color: var(--muted);
+}
+
+.ring-in.done .stat {
+  color: var(--tea-d);
+  font-weight: 600;
+}
+
+.adj {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+}
+
+.adj-btn {
+  min-width: 180rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  border-radius: 44rpx;
+  background: var(--chip);
+}
+
+.steeps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin: 32rpx 0 0;
+  justify-content: center;
+}
+
+.sc {
+  padding: 4rpx 18rpx;
+  border-radius: 8rpx;
+  background: var(--chip);
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.sc.noted {
+  color: var(--tea-d);
+  background: #e6efe3;
+}
+
+.params {
+  margin-top: 32rpx;
+}
+
+.tip {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+/* 主操作区在屏幕下半部，便于单手、湿手点击 */
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
+  background: #f6f1e7;
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side {
+  width: 150rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 50rpx;
+  background: var(--chip);
+  font-size: 30rpx;
+}
+
+.side.dis {
+  opacity: 0.4;
+}
+
+.main {
+  width: 200rpx;
+  height: 200rpx;
+  line-height: 200rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--tea);
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(74, 107, 79, 0.4);
+}
+
+.main.running {
+  background: var(--warn);
+  box-shadow: 0 8rpx 24rpx rgba(181, 101, 29, 0.4);
+}
+
+/* 茶具搭配 */
+.ware-tabs {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.wt {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  height: 64rpx;
+  border-radius: 12rpx;
+  background: var(--chip);
+  font-size: 26rpx;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wt.on {
+  background: var(--tea);
+  color: #fff;
+}
+
+.wt-rec {
+  padding: 0 8rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  line-height: 30rpx;
+  background: #f6e3cf;
+  color: var(--warn);
+}
+
+.ware-img {
+  display: block;
+  width: 100%;
+  border-radius: 16rpx;
+}
+
+.pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.piece {
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  background: var(--chip);
+  color: var(--tea-d);
+  font-size: 24rpx;
+}
+
+.why {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.ware-tip {
+  margin-top: 12rpx;
+  line-height: 1.6;
+}
+
+.music-hint {
+  margin-top: 16rpx;
+}
+
+/* 语音记录 */
+.voice {
+  margin-top: 32rpx;
+}
+
+.voice-status {
+  font-size: 28rpx;
+  gap: 12rpx;
+}
+
+.voice-dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: #d8d0bd;
+  flex-shrink: 0;
+}
+
+.voice-dot.live {
+  background: #b3402f;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.voice-partial {
+  margin-top: 16rpx;
+  line-height: 1.6;
+}
+
+.voices {
+  margin-top: 20rpx;
+  border-top: 2rpx solid var(--chip);
+}
+
+.v-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid var(--chip);
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.v-item:last-child {
+  border-bottom: none;
+}
+
+.v-speaker {
+  flex-shrink: 0;
+  margin-right: 16rpx;
+  color: var(--tea-d);
+  font-weight: 600;
+}
+
+.v-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 计时中：茶具与配乐入口 */
+.extras {
+  display: flex;
+  justify-content: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  max-width: 330rpx;
+  height: 60rpx;
+  padding: 0 20rpx 0 8rpx;
+  border-radius: 30rpx;
+  background: var(--chip);
+  font-size: 24rpx;
+  color: var(--tea-d);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pill-img {
+  width: 76rpx;
+  height: 46rpx;
+  border-radius: 23rpx;
+  flex-shrink: 0;
+}
+
+.pill-ware {
+  width: 40rpx;
+  flex-shrink: 0;
+  margin: 0 4rpx;
+}
+
+.pill-ic {
+  width: 46rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.pill.on {
+  background: #e6efe3;
+}
+
+.pill-ic.spin {
+  animation: sway 2.4s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-end;
+}
+
+.pop {
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 28rpx 28rpx calc(36rpx + env(safe-area-inset-bottom));
+  border-radius: 28rpx 28rpx 0 0;
+  background: var(--paper);
+}
+
+.pop-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+/* 器柜里的茶器 */
+.w-role {
+  margin: 8rpx 0 12rpx;
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.w-row {
+  white-space: nowrap;
+  margin: 0 -28rpx 12rpx;
+  padding: 0 28rpx;
+  width: auto;
+}
+
+.w-item {
+  display: inline-block;
+  width: 168rpx;
+  margin-right: 20rpx;
+  padding: 10rpx;
+  border-radius: 16rpx;
+  border: 3rpx solid transparent;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.w-item.on {
+  border-color: var(--tea);
+  background: #eef3ec;
+}
+
+.w-can {
+  position: relative;
+  width: 120rpx;
+  margin: 0 auto;
+}
+
+.w-rec,
+.w-ok {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  width: 34rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.w-rec {
+  left: -8rpx;
+  background: #b3402f;
+}
+
+.w-ok {
+  right: -8rpx;
+  background: var(--tea);
+}
+
+.w-name {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.w-sub {
+  display: block;
+  color: var(--muted);
+  font-size: 20rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.w-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+
+.w-empty .link {
+  padding-left: 0;
+}
+
+.pop-mine {
+  margin-bottom: 8rpx;
+}
+
+.pop-sec {
+  margin: 12rpx 0 16rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid var(--chip);
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+/* 器柜推荐组合 */
+.combo-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  margin-bottom: 12rpx;
+  border-radius: 16rpx;
+  background: var(--chip);
+}
+
+.combo-row.on {
+  background: #eef3ec;
+  box-shadow: inset 0 0 0 3rpx var(--tea);
+}
+
+.combo-can {
+  width: 80rpx;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
+
+.combo-txt {
+  flex: 1;
+  min-width: 0;
+}
+
+.combo-name {
+  display: block;
+  font-size: 28rpx;
+}
+
+.combo-sub {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.combo-rec,
+.combo-ok {
+  flex-shrink: 0;
+  margin-left: 12rpx;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 22rpx;
+  color: #fff;
+}
+
+.combo-rec {
+  background: #b3402f;
+}
+
+.combo-ok {
+  background: var(--tea);
+}
+
+.combo-use {
+  margin-top: 8rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  background: var(--tea);
+  color: #fff;
+  font-size: 30rpx;
+}

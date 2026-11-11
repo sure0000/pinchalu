@@ -1,0 +1,54 @@
+<view class="page" wx:if="{{loaded && ware}}">
+  <scroll-view class="photos" scroll-x wx:if="{{ware.photos.length}}" enhanced show-scrollbar="{{false}}">
+    <image class="photo {{ware.photos.length === 1 ? 'solo' : ''}}" wx:for="{{ware.photos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-i="{{index}}" />
+  </scroll-view>
+  <view class="hero" wx:else>
+    <view class="hero-can">
+      <ware-cover kind="{{kind}}" material="{{ware.material}}" cap="{{ware.capacityMl ? ware.capacityMl + 'ml' : ''}}" gray="{{ware.retired}}" badge="{{ware.retired ? '收起' : ''}}" />
+    </view>
+    <text class="hero-add" bindtap="edit">＋ 添加照片</text>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <view class="title">
+        <text class="tname">{{ware.name}}</text>
+        <text class="badge done" wx:if="{{ware.retired}}">收起不用</text>
+      </view>
+      <text class="link" bindtap="edit">编辑</text>
+    </view>
+    <view class="info">
+      <view class="info-row" wx:for="{{rows}}" wx:key="k">
+        <text class="info-k">{{item.k}}</text>
+        <text class="info-v">{{item.v}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-k">宜泡</text>
+        <view class="info-v shelves" wx:if="{{fits.length}}">
+          <text class="shelf" wx:for="{{fits}}" wx:key="*this">{{item}}</text>
+        </view>
+        <text class="info-v muted" wx:else>百搭</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card stats">
+    <view class="stat" wx:for="{{stats}}" wx:key="k">
+      <text class="stat-v">{{item.v}}</text>
+      <text class="stat-k">{{item.k}}</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{teas.length}}">
+    <view class="sec">常用它泡的茶</view>
+    <view class="trow row between" wx:for="{{teas}}" wx:key="key" bindtap="openTea" data-id="{{item.id}}">
+      <text>{{item.name}}</text>
+      <text class="muted">{{item.n}} 次{{item.id ? ' ›' : ''}}</text>
+    </view>
+  </view>
+  <view class="muted none" wx:else>最近还没用它泡过茶。</view>
+
+  <view class="foot">
+    <view class="btn btn-primary" bindtap="brew">用它泡茶</view>
+  </view>
+</view>

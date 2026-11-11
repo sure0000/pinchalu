@@ -1,0 +1,62 @@
+<view class="page" wx:if="{{ready}}">
+  <view class="card">
+    <view class="row between">
+      <text class="sec">种草文案</text>
+      <text class="muted">切换风格 · 点「换一版」换说法</text>
+    </view>
+    <view class="chips tabs">
+      <text class="chip {{styleIndex === index ? 'on' : ''}}" wx:for="{{styles}}" wx:key="*this" bindtap="pickStyle" data-i="{{index}}">{{item}}</text>
+    </view>
+    <view class="copy">
+      <text class="title">{{title}}</text>
+      <text class="p" wx:for="{{paragraphs}}" wx:key="*this">{{item}}</text>
+      <text class="hash">{{hashtags}}</text>
+    </view>
+    <view class="row actions">
+      <view class="btn ghost" bindtap="changeCopy">换一版</view>
+      <view class="btn btn-primary" bindtap="copyAll">复制文案</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">分享图片 · 主图 + 风味轮 + 每一泡 + 香气滋味 + 评分总评</text>
+      <text class="muted">{{slideIndex + 1}} / {{images.length}}</text>
+    </view>
+    <view class="chips tabs">
+      <text class="chip {{themeIndex === index ? 'on' : ''}}" wx:for="{{themes}}" wx:key="*this" bindtap="pickTheme" data-i="{{index}}">{{item}}</text>
+    </view>
+
+    <view class="cover-box">
+      <text class="sec">主图背景 · 可用拍摄的照片替换</text>
+      <view class="cover-row">
+        <view class="cover-photo" wx:if="{{coverPhoto}}" bindtap="previewCover">
+          <image class="cover-img" src="{{coverPhoto}}" mode="aspectFill" />
+          <text class="cover-clear" catchtap="clearCoverPhoto">×</text>
+        </view>
+        <text class="cover-none" wx:else>未设置，使用当前主题底色</text>
+        <view class="btn ghost cover-btn" bindtap="pickCoverPhoto">{{coverPhoto ? '更换照片' : '拍摄 / 选照片'}}</view>
+      </view>
+    </view>
+
+    <view class="img-wrap" wx:if="{{images.length}}">
+      <swiper class="imgs" current="{{slideIndex}}" bindchange="onSlide">
+        <swiper-item wx:for="{{images}}" wx:key="*this">
+          <image class="img" src="{{item}}" mode="aspectFit" bindtap="previewImage" />
+        </swiper-item>
+      </swiper>
+      <view class="img-label">{{slideLabels[slideIndex]}}</view>
+    </view>
+    <view class="img-empty" wx:else>{{generating ? '正在生成…' : '图片生成失败'}}</view>
+
+    <view class="row actions">
+      <view class="btn ghost" bindtap="saveCurrent">保存当前</view>
+      <view class="btn btn-primary" bindtap="saveAll">{{saving ? '保存中…' : '保存全部 ' + images.length + ' 张'}}</view>
+    </view>
+  </view>
+
+  <view class="muted hint">保存图片、复制文案后，打开小红书 App 发多图笔记即可。图片为 3:4 竖版卡片。</view>
+
+  <!-- 离屏画布：生成整套图片用 -->
+  <canvas type="2d" id="shareCanvas" class="canvas" />
+</view>

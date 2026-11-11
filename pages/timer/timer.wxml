@@ -1,0 +1,235 @@
+<!-- 器柜里的茶器：主泡器 / 公道杯 / 品茗杯各一行，横滑点选 -->
+<template name="mine">
+  <block wx:for="{{roles}}" wx:for-item="r" wx:key="key">
+    <block wx:if="{{myWares[r.key].length}}">
+    <view class="w-role">{{r.name}}</view>
+    <scroll-view class="w-row" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="w-item {{item.id === wareSel[r.key] ? 'on' : ''}}" wx:for="{{myWares[r.key]}}" wx:key="id" bindtap="pickMyWare" data-role="{{r.key}}" data-id="{{item.id}}">
+        <view class="w-can">
+          <ware-cover kind="{{item.kind}}" material="{{item.material}}" src="{{item.src}}" />
+          <text class="w-rec" wx:if="{{item.rec}}">荐</text>
+          <text class="w-ok" wx:if="{{item.id === wareSel[r.key]}}">✓</text>
+        </view>
+        <text class="w-name">{{item.name}}</text>
+        <text class="w-sub">{{item.sub}}</text>
+      </view>
+    </scroll-view>
+    </block>
+  </block>
+</template>
+
+<!-- 搭配参考（按茶类推荐的套组插画）：开泡前的弹层与计时中的弹层共用 -->
+<template name="ware">
+  <view class="ware-tabs" wx:if="{{wares.length > 1}}">
+    <view class="wt {{item.id === ware.id ? 'on' : ''}}" wx:for="{{wares}}" wx:key="id" bindtap="pickWare" data-id="{{item.id}}">
+      <text>{{item.name}}</text>
+      <text class="wt-rec" wx:if="{{index === 0}}">荐</text>
+    </view>
+  </view>
+  <image class="ware-img" src="{{ware.img}}" mode="widthFix" />
+  <view class="pieces">
+    <text class="piece" wx:for="{{ware.pieces}}" wx:key="*this">{{item}}</text>
+  </view>
+  <view class="why">{{ware.why}}</view>
+  <view class="muted ware-tip" wx:if="{{wareTip}}">{{wareTip}}</view>
+</template>
+
+<!-- 器柜推荐组合：主泡器 / 公道杯 / 品茗杯各取最适配的一件，点选后一键选用 -->
+<template name="combo">
+  <view class="combo-row {{item.id === wareSel[item.role] ? 'on' : ''}}" wx:for="{{combo}}" wx:key="id" bindtap="pickMyWare" data-role="{{item.role}}" data-id="{{item.id}}">
+    <view class="combo-can"><ware-cover kind="{{item.kind}}" material="{{item.material}}" src="{{item.src}}" /></view>
+    <view class="combo-txt">
+      <text class="combo-name">{{item.name}}</text>
+      <text class="combo-sub">{{item.roleName}} · {{item.sub}}</text>
+    </view>
+    <text class="combo-rec" wx:if="{{item.rec}}">荐</text>
+    <text class="combo-ok" wx:if="{{item.id === wareSel[item.role]}}">✓</text>
+  </view>
+</template>
+
+<!-- 开泡前：选茶与参数 -->
+<view class="page" wx:if="{{phase === 'setup'}}">
+  <!-- 从某款茶进来：锁定这款茶并展示说明，不再选茶类/我的茶 -->
+  <view class="card" wx:if="{{fixedTea && teaInfo}}">
+    <view class="row between">
+      <text class="sec">这款茶</text>
+      <text class="link" bindtap="switchTea">换一款</text>
+    </view>
+    <view class="tf">
+      <view class="tf-can">
+        <tea-cover name="{{teaInfo.name}}" src="{{teaInfo.src}}" color="{{teaInfo.color}}" shape="{{teaInfo.shape}}" gray="{{teaInfo.gray}}" badge="{{teaInfo.gray ? '喝完' : ''}}" />
+      </view>
+      <text class="tf-name">{{teaInfo.name}}</text>
+      <text class="tf-cat" style="color: {{teaInfo.color}};">{{teaInfo.categoryName}}<text class="tf-effect" wx:if="{{teaInfo.effect}}"> · {{teaInfo.effect}}</text></text>
+    </view>
+    <view class="tf-rows" wx:if="{{teaInfo.rows.length}}">
+      <view class="tf-row" wx:for="{{teaInfo.rows}}" wx:key="k">
+        <text class="tf-k">{{item.k}}</text>
+        <text class="tf-v">{{item.v}}</text>
+      </view>
+    </view>
+    <view class="muted" wx:if="{{!teaInfo.rows.length}}">还没补充产地、品种等信息，去茶详情补全 ›</view>
+  </view>
+
+  <block wx:if="{{!fixedTea}}">
+  <view class="card">
+    <view class="sec">茶类</view>
+    <view class="chips">
+      <view class="chip {{item.code === category ? 'on' : ''}}" wx:for="{{categories}}" wx:key="code" bindtap="pickCategory" data-code="{{item.code}}">{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">我的茶（可不选）</text>
+      <text class="link" bindtap="newTea">＋ 新建茶</text>
+    </view>
+    <view class="muted" wx:if="{{!teaList.length}}">这个茶类下还没有茶。可以直接开泡，结束时再补选。</view>
+    <view class="tea {{item._id === teaId ? 'on' : ''}}" wx:for="{{teaList}}" wx:key="_id" bindtap="pickTea" data-id="{{item._id}}">
+      <text>{{item.name}}</text>
+      <text wx:if="{{item._id === teaId}}">✓</text>
+    </view>
+  </view>
+  </block>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">茶器</text>
+      <text class="link" wx:if="{{ware}}" bindtap="openWare">搭配参考</text>
+    </view>
+    <block wx:if="{{myWares.main.length || myWares.fair.length || myWares.cup.length}}">
+      <template is="mine" data="{{roles, myWares, wareSel}}" />
+      <view class="muted ware-tip">{{wareTip || '再点一下可以取消选择'}}</view>
+    </block>
+    <view class="w-empty" wx:else>
+      <text class="muted">器柜里还没有茶器，先看看这类茶的搭配参考；添置后就能直接选用，记录里也会记下用的哪件器。</text>
+      <text class="link" bindtap="newWare">＋ 添置茶器</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">配乐</text>
+      <text class="link" wx:if="{{track}}" bindtap="togglePreview">{{playing ? '停止试听' : '试听'}}</text>
+    </view>
+    <view class="chips">
+      <view class="chip {{item.id === musicId ? 'on' : ''}}" wx:for="{{tracks}}" wx:key="id" bindtap="onPickMusic" data-id="{{item.id}}">{{item.name}} · {{item.mode}}</view>
+      <view class="chip {{musicId === 'off' ? 'on' : ''}}" bindtap="onPickMusic" data-id="off">不放</view>
+    </view>
+    <view class="muted music-hint">{{track ? track.mood + '，计时中循环播放，出汤提示时自动压低' : '计时中不放配乐'}}</view>
+  </view>
+
+  <view class="card">
+    <view class="row between">
+      <text class="sec">语音记录</text>
+      <switch checked="{{voiceAuto}}" bindchange="onVoiceAuto" color="#4a6b4f" />
+    </view>
+    <view class="muted music-hint">开泡后自动开始录音，一直录到结束本场；结束时统一转写，先显示文字，再整理成总评。</view>
+  </view>
+
+  <view class="card">
+    <view class="sec">冲泡参数（只影响本场）</view>
+    <stepper label="投茶量" unit="g" value="{{leafG}}" step="{{0.5}}" min="{{1}}" max="{{30}}" data-key="leafG" bindchange="onSetupParam" />
+    <stepper label="水量" unit="ml" value="{{waterMl}}" step="{{10}}" min="{{30}}" max="{{500}}" data-key="waterMl" bindchange="onSetupParam" />
+    <stepper label="水温" unit="°C" value="{{tempC}}" step="{{5}}" min="{{60}}" max="{{100}}" data-key="tempC" bindchange="onSetupParam" />
+    <stepper label="首泡" unit="秒" value="{{firstSec}}" step="{{5}}" min="{{5}}" max="{{300}}" data-key="firstSec" bindchange="onSetupParam" />
+  </view>
+
+  <view class="foot">
+    <view class="btn btn-primary" bindtap="startBrew">开始第 1 泡 · {{firstSec}} 秒</view>
+  </view>
+</view>
+
+<!-- 计时中 -->
+<view class="brew" wx:else>
+  <view class="top">
+    <view class="who">{{teaName}}<text class="cat">{{categoryName}}</text></view>
+    <view class="count">第 {{view.n}} 泡 · 本泡 {{view.seconds}} 秒 · 已累计 {{view.done}} 泡</view>
+    <view class="extras">
+      <view class="pill" wx:if="{{mainWare || ware}}" bindtap="openWare">
+        <view class="pill-ware" wx:if="{{mainWare}}"><ware-cover kind="{{mainWare.kind}}" material="{{mainWare.material}}" src="{{mainWare.src}}" /></view>
+        <image class="pill-img" wx:else src="{{ware.img}}" mode="aspectFill" />
+        <text>{{mainWare ? mainWare.name : ware.name}}</text>
+      </view>
+      <view class="pill {{playing ? 'on' : ''}}" bindtap="musicMenu">
+        <text class="pill-ic {{playing ? 'spin' : ''}}">♪</text>
+        <text>{{track ? track.name + ' · ' + track.mode : '配乐'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="ring" style="background: conic-gradient(#4a6b4f {{view.pct}}%, #e4dccb 0);">
+    <view class="ring-in {{view.status}}">
+      <text class="clock">{{view.clock}}</text>
+      <text class="stat">{{view.text}}</text>
+    </view>
+  </view>
+
+  <view class="adj" wx:if="{{view.status !== 'done'}}">
+    <view class="adj-btn" bindtap="adjust" data-delta="{{-5}}">－5 秒</view>
+    <view class="adj-btn" bindtap="adjust" data-delta="{{5}}">＋5 秒</view>
+  </view>
+
+  <view class="steeps" wx:if="{{steepChips.length}}">
+    <view class="sc {{item.noted ? 'noted' : ''}}" wx:for="{{steepChips}}" wx:key="n">第{{item.n}}泡 {{item.text}}{{item.noted ? ' ✎' : ''}}</view>
+  </view>
+
+  <view class="card params">
+    <view class="sec">冲泡参数{{view.locked ? '（泡与泡之间可改）' : '（只影响本场）'}}</view>
+    <stepper label="投茶量" unit="g" value="{{leafG}}" step="{{0.5}}" min="{{1}}" max="{{30}}" disabled="{{view.locked}}" data-key="leafG" bindchange="onBrewParam" />
+    <stepper label="水量" unit="ml" value="{{waterMl}}" step="{{10}}" min="{{30}}" max="{{500}}" disabled="{{view.locked}}" data-key="waterMl" bindchange="onBrewParam" />
+    <stepper label="水温" unit="°C" value="{{tempC}}" step="{{5}}" min="{{60}}" max="{{100}}" disabled="{{view.locked}}" data-key="tempC" bindchange="onBrewParam" />
+  </view>
+
+  <view class="card voice">
+    <view class="row between">
+      <view class="row voice-status">
+        <view class="voice-dot {{voiceStatus === 'recording' ? 'live' : ''}}"></view>
+        <text>{{voiceStatus === 'recording' ? '正在录音 ' + voiceSec + 's' : (voiceStatus === 'recognizing' ? (voiceProgress || '正在转写…') : (voices.length ? '语音记录 · 已记 ' + voices.length + ' 条' : '语音记录'))}}</text>
+      </view>
+      <view class="row">
+        <text class="link" wx:if="{{voiceStatus === 'idle'}}" bindtap="startVoice">开始录音</text>
+      </view>
+    </view>
+    <view class="muted voice-partial" wx:if="{{voicePartial}}">{{voicePartial}}</view>
+    <view class="voices" wx:if="{{voices.length}}">
+      <view class="v-item" wx:for="{{voices}}" wx:key="id">
+        <text class="v-speaker">{{item.speaker}}</text>
+        <text class="v-text">{{item.text || '（未转写，可到汇总页补写）'}}</text>
+      </view>
+    </view>
+    <view class="muted" wx:if="{{!voices.length && voiceStatus === 'idle'}}">开泡后自动录音，一直录到结束本场；结束时统一转写并整理。</view>
+  </view>
+
+  <view class="tip">计时请保持在前台，切到后台将无法震动提醒</view>
+
+  <view class="bar">
+    <view class="side" bindtap="onEnd">结束</view>
+    <view class="main {{view.status}}" bindtap="onMain">{{view.mainText}}</view>
+    <view class="side {{canNote ? '' : 'dis'}}" bindtap="{{canNote ? 'openNote' : ''}}">记一笔</view>
+  </view>
+
+  <note-sheet show="{{sheetShow}}" title="{{sheetTitle}}" tags="{{sheetTags}}" tastes="{{sheetTastes}}" review="{{sheetReview}}" note="{{sheetNote}}" bindsave="saveNote" bindclose="closeNote" />
+</view>
+
+<!-- 茶器弹层：计时中可换本场用的器；开泡前、计时中都能看搭配参考 -->
+<view class="mask" wx:if="{{wareShow}}" bindtap="closeWare">
+  <view class="pop" catchtap="noop">
+    <view class="row between">
+      <text class="pop-title">{{phase === 'brew' ? '本场茶器' : '搭配参考'}}</text>
+      <text class="link" bindtap="closeWare">关闭</text>
+    </view>
+    <view class="pop-mine" wx:if="{{phase === 'brew' && (myWares.main.length || myWares.fair.length || myWares.cup.length)}}">
+      <template is="mine" data="{{roles, myWares, wareSel}}" />
+      <view class="pop-sec">搭配参考</view>
+    </view>
+    <!-- 开泡前：器柜有茶器时先推荐一套自己的组合，下面始终给出搭配参考 -->
+    <block wx:if="{{phase === 'setup' && hasMyWares}}">
+      <view class="pop-sec">器柜推荐组合</view>
+      <template is="combo" data="{{combo, wareSel}}" />
+      <view class="combo-use" bindtap="useCombo">用这套推荐组合</view>
+      <view class="pop-sec">搭配参考</view>
+    </block>
+    <template is="ware" data="{{ware, wares, wareTip}}" />
+  </view>
+</view>

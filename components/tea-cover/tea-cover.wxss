@@ -1,0 +1,194 @@
+/* 组件节点默认是行内元素，改成块级，宽度跟随外层格子 */
+:host {
+  display: block;
+}
+
+/* 一只立着的茶叶罐：罐身，横向明暗做出圆柱感，底下一圈投影 */
+.tc {
+  position: relative;
+  width: 100%;
+  padding-top: 128%;
+}
+
+.body {
+  position: absolute;
+  background: var(--c);
+}
+
+/* 明暗：左侧受光、右侧背光 */
+.body::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0.24) 20%, rgba(255, 255, 255, 0) 46%, rgba(0, 0, 0, 0.16) 100%);
+  pointer-events: none;
+}
+
+.body {
+  left: 8%;
+  right: 8%;
+  top: 0;
+  bottom: 3%;
+  border-radius: 12rpx 12rpx 16rpx 16rpx;
+  overflow: hidden;
+  box-shadow: 0 14rpx 18rpx -10rpx rgba(60, 45, 30, 0.35);
+}
+
+/* 陶罐：圆肩 */
+.shape-jar .body {
+  left: 4%;
+  right: 4%;
+  top: 0;
+  border-radius: 46% 46% 22% 22% / 30% 30% 14% 14%;
+}
+
+/* 背景层：同一张图铺满并模糊，消除 aspectFit 四周的底色，让留白变成柔和的同色底 */
+.img-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-filter: blur(24rpx);
+  filter: blur(24rpx);
+  transform: scale(1.25);
+  opacity: 0.9;
+}
+
+.img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 竖排纸签 */
+.label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 38%;
+  min-height: 52%;
+  padding: 12rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 253, 248, 0.95);
+  border-radius: 4rpx;
+  box-shadow: 0 0 0 4rpx rgba(255, 253, 248, 0.35);
+}
+
+.shape-jar .label {
+  top: 56%;
+}
+
+.ch {
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 26rpx;
+  line-height: 1.25;
+  color: #2b2a26;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ch.latin {
+  line-height: 1.5;
+  letter-spacing: -1rpx;
+  text-overflow: ellipsis;
+}
+
+.seal {
+  position: absolute;
+  z-index: 2;
+  right: 12%;
+  bottom: 9%;
+  width: 18%;
+  padding-top: 18%;
+  border-radius: 4rpx;
+  background: #b3402f;
+}
+
+.seal-t {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: #fff;
+  font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+  font-size: 24rpx;
+}
+
+.badge {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  padding: 0 10rpx;
+  border-radius: 0 12rpx 0 12rpx;
+  background: #a9a397;
+  color: #fff;
+  font-size: 20rpx;
+  line-height: 32rpx;
+}
+
+/* 灰色态：缺的茶类、已喝完 */
+.gray .body::after {
+  display: none;
+}
+
+.gray .body {
+  box-shadow: none;
+}
+
+.gray .img {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+.gray .img-bg {
+  filter: grayscale(1) blur(24rpx);
+  opacity: 0.45;
+}
+
+.gray .label {
+  background: transparent;
+  box-shadow: none;
+}
+
+.gray .ch {
+  color: #b3ad9f;
+}
+
+/* 末尾的“＋”格：虚线空罐 */
+.add .body {
+  background: transparent;
+  border: 2rpx dashed #cfc8b9;
+  box-shadow: none;
+}
+
+.add .body::after {
+  display: none;
+}
+
+.plus {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 56rpx;
+  font-weight: 200;
+  color: #b3ad9f;
+}

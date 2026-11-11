@@ -1,0 +1,14 @@
+<view class="mask" wx:if="{{show}}" bindtap="close" catchtouchmove="noop"></view>
+<view class="panel" wx:if="{{show}}" catchtouchmove="noop">
+  <view class="head">
+    <text class="title">{{title}}</text>
+    <text class="close" bindtap="close">关闭</text>
+  </view>
+  <scroll-view scroll-y class="body">
+    <flavor-wheel value="{{curTags}}" bindchange="onTags" />
+    <taste-picker value="{{curTastes}}" bindchange="onTastes" />
+    <review-panel mode="steep" value="{{curReview}}" bindchange="onReview" />
+  </scroll-view>
+  <input class="line" maxlength="100" placeholder="一句话（可留空）" value="{{curNote}}" bindinput="onNote" adjust-position />
+  <view class="btn btn-primary" bindtap="save">保存</view>
+</view>

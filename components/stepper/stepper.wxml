@@ -1,0 +1,8 @@
+<view class="stepper {{disabled ? 'off' : ''}}">
+  <text class="label">{{label}}</text>
+  <view class="ctrl">
+    <view class="btn" bindtap="dec">－</view>
+    <view class="val">{{value}}<text class="unit">{{unit}}</text></view>
+    <view class="btn" bindtap="inc">＋</view>
+  </view>
+</view>

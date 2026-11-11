@@ -1,0 +1,14 @@
+<view class="tc {{kind}} shape-{{shape}} {{gray ? 'gray' : ''}}" style="--c: {{gray || kind === 'add' ? '#e4e0d7' : color}};">
+  <view class="body">
+    <block wx:if="{{localSrc && kind === 'tea'}}">
+      <image class="img-bg" src="{{localSrc}}" mode="aspectFill" />
+      <image class="img" src="{{localSrc}}" mode="aspectFit" lazy-load />
+    </block>
+    <view wx:elif="{{kind === 'tea'}}" class="label">
+      <text class="ch {{item.latin ? 'latin' : ''}}" wx:for="{{chars}}" wx:key="index" style="font-size: {{item.s}}rpx;">{{item.t}}</text>
+    </view>
+    <text wx:else class="plus">＋</text>
+    <view class="seal" wx:if="{{seal}}"><text class="seal-t">{{seal}}</text></view>
+  </view>
+  <view class="badge" wx:if="{{badge}}">{{badge}}</view>
+</view>
